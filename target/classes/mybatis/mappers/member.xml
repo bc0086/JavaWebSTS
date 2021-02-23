@@ -211,7 +211,7 @@
 		]]>
 	</select>
 	
-	<!-- 로그인시 회원정보 조회 -->
+	<!-- 로그인 시 회원정보 조회 -->
 	<select id="loginById" resultType="memberVO" parameterType="memberVO">
 		<![CDATA[
 			select * from t_member
