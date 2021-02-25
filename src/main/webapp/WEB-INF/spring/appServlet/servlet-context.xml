@@ -2,10 +2,11 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -47,6 +48,19 @@
 	    <beans:property name="maxInMemorySize" value="1000000" />
 	    <beans:property name="defaultEncoding" value="utf-8" />
     </beans:bean>
+    
+    <!-- 스프링 인터셉터 -->
+    <mvc:interceptors> <!-- 인터셉터 기능을 사용하도록 설정함 -->
+      	<mvc:interceptor>
+         	<mvc:mapping path="/test/*.do"/>  
+         		<!-- 특정요청, 즉 /test/*.do에 대해서만 인터셉터 빈을 수행함 -->
+         		
+				<!-- <mvc:mapping path="/*/*.do"/> -->
+				<!-- 모든요청에 대해서 인터셉터 빈을 수행함 -->
+         	<beans:bean class="com.spring.bcjin.Interceptor.LocaleInterceptor" />
+         		<!-- 인터셉터 기능을 수행할 빈을 설정함 -->
+      	</mvc:interceptor>
+   </mvc:interceptors>
 			
 	<context:component-scan base-package="com.spring.bcjin" />
 		<!-- 패키지와 애너테이션을 지정 -->

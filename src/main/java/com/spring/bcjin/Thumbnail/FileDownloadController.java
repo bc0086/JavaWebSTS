@@ -1,4 +1,4 @@
-package thumbnail;
+package com.spring.bcjin.Thumbnail;
 
 import java.io.File;
 import java.io.FileInputStream;
