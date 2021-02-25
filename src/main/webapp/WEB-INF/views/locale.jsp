@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" 
-    import="java.util.*"
-    isELIgnored="false" %>
+    pageEncoding="UTF-8" import="java.util.*" isELIgnored="false" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 	<!-- spring message 태그를 사용할 수 있도록 설정함 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

@@ -52,10 +52,10 @@
     <!-- 스프링 인터셉터 -->
     <mvc:interceptors> <!-- 인터셉터 기능을 사용하도록 설정함 -->
       	<mvc:interceptor>
-         	<mvc:mapping path="/test/*.do"/>  
+         	<!-- <mvc:mapping path="/test/*.do"/>   -->
          		<!-- 특정요청, 즉 /test/*.do에 대해서만 인터셉터 빈을 수행함 -->
          		
-				<!-- <mvc:mapping path="/*/*.do"/> -->
+				<mvc:mapping path="/*/*.do"/>
 				<!-- 모든요청에 대해서 인터셉터 빈을 수행함 -->
          	<beans:bean class="com.spring.bcjin.Interceptor.LocaleInterceptor" />
          		<!-- 인터셉터 기능을 수행할 빈을 설정함 -->

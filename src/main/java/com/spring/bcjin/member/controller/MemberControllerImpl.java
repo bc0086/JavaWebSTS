@@ -36,7 +36,9 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	@RequestMapping(value="/member/listMembers.do", method=RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
+//		String viewName = getViewName(request);
+		String viewName = (String) request.getAttribute("viewName");
+			// 인터셉터에서 바인딩 된 뷰임을 가져옴.
 		logger.info("info레벨 : viewName =" + viewName); // 로그메세지 레벨을 info로 설정
 		logger.debug("debug레벨 : viewName =" + viewName); // 로그메세지 레벨을 debug로 설정
 		
@@ -51,38 +53,38 @@ public class MemberControllerImpl implements MemberController {
 			// ModelAndView 객체에 설정한 뷰 이름을 타일즈 뷰리졸버로 반환함
 	}
 	
-	private String getViewName(HttpServletRequest request) throws Exception {
-		String contextPath = request.getContextPath();
-		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
-		if (uri == null || uri.trim().equals("")) {
-			uri = request.getRequestURI();
-		}
-
-		int begin = 0;
-		if (!((contextPath == null) || ("".equals(contextPath)))) {
-			begin = contextPath.length();
-		}
-
-		int end;
-		if (uri.indexOf(";") != -1) {
-			end = uri.indexOf(";");
-		} else if (uri.indexOf("?") != -1) {
-			end = uri.indexOf("?");
-		} else {
-			end = uri.length();
-		}
-
-		String viewName = uri.substring(begin, end);
-		if (viewName.indexOf(".") != -1) {
-			viewName = viewName.substring(0, viewName.lastIndexOf("."));
-		}
-		if (viewName.lastIndexOf("/") != -1) {
-			viewName = viewName.substring(viewName.lastIndexOf("/",1), viewName.length());
-		}
-			// /member/listMembers.do로 요청할 경우 member/listMember를 파일 이름으로 가져옴
-		
-		return viewName;
-	}
+//	private String getViewName(HttpServletRequest request) throws Exception {
+//		String contextPath = request.getContextPath();
+//		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
+//		if (uri == null || uri.trim().equals("")) {
+//			uri = request.getRequestURI();
+//		}
+//
+//		int begin = 0;
+//		if (!((contextPath == null) || ("".equals(contextPath)))) {
+//			begin = contextPath.length();
+//		}
+//
+//		int end;
+//		if (uri.indexOf(";") != -1) {
+//			end = uri.indexOf(";");
+//		} else if (uri.indexOf("?") != -1) {
+//			end = uri.indexOf("?");
+//		} else {
+//			end = uri.length();
+//		}
+//
+//		String viewName = uri.substring(begin, end);
+//		if (viewName.indexOf(".") != -1) {
+//			viewName = viewName.substring(0, viewName.lastIndexOf("."));
+//		}
+//		if (viewName.lastIndexOf("/") != -1) {
+//			viewName = viewName.substring(viewName.lastIndexOf("/",1), viewName.length());
+//		}
+//			// /member/listMembers.do로 요청할 경우 member/listMember를 파일 이름으로 가져옴
+//		
+//		return viewName;
+//	}
 
 	@Override
 	@RequestMapping(value="/member/addMember.do", method=RequestMethod.POST)
@@ -165,7 +167,9 @@ public class MemberControllerImpl implements MemberController {
 	private ModelAndView form(@RequestParam(value="result", required = false) String result,
 								HttpServletRequest request,
 								HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
+//		String viewName = getViewName(request);
+		String viewName = (String) request.getAttribute("viewName");
+			// 인터셉터에서 바인딩 된 뷰이름을 가져옴.
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("result", result);
 		mav.setViewName(viewName);
