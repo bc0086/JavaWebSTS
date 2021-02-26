@@ -5,16 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.bcjin.member.vo.MemberVO;
-
-@RestController // JSP같은 뷰를 반환하는 것이 아니고, JSON이나 XML같은 데이터를 브라우저로 전송
+@Controller
+//@RestController // JSP같은 뷰를 반환하는 것이 아니고, JSON이나 XML같은 데이터를 브라우저로 전송
 @RequestMapping("/test/*")
 public class TestController {
+	static Logger logger = LoggerFactory.getLogger(TestController.class);
+	
 	@RequestMapping("/hello")
 	public String hello() {
 		return "Hello REST !";
@@ -68,5 +75,26 @@ public class TestController {
 	public int notice(@PathVariable("num") int num) throws Exception {
 		// 요청URL에서 지정된 값이 num에 자동으로 할당됨
 		return num;
+	}
+	
+	@RequestMapping(value="/info", method=RequestMethod.POST)
+	public void modify(@RequestBody MemberVO vo) {
+		// JSON으로 전송된 데이터를 MemberVO객체의 속성에 자동으로 설정해줌
+		logger.info(vo.toString());
+	}
+	
+	@RequestMapping(value="/res1")
+	@ResponseBody // 메서드 호출 시 데이터를 전송하도록 설정함
+	public Map<String, Object> res1() {
+		Map<String, Object> map = new HashMap<String, Object>();
+			// Map데이터를 브라우저로 전송
+		map.put("id", "hong");
+		map.put("name", "홍길동");
+		return map; // return값은 맵의 데이터임
+	}
+	
+	@RequestMapping(value="/res2")
+	public ModelAndView res2() {
+		return new ModelAndView("home"); // return값은 home.jsp
 	}
 }
