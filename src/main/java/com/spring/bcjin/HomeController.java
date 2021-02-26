@@ -44,7 +44,9 @@ public class HomeController {
 			/* /main.do로 요청 시 컨트롤러에서는 <definion>태그에서 설정한 뷰이름 main을
 			 * 타일즈 뷰 리졸버로 반환함 */
 			
-		return "JSONTest";
+//		return "JSONTest";
+		
+		return "JSONTest2";
 	}
 	
 }

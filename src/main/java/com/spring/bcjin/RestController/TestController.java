@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-//@RestController // JSP같은 뷰를 반환하는 것이 아니고, JSON이나 XML같은 데이터를 브라우저로 전송
+//@Controller
+@RestController // JSP같은 뷰를 반환하는 것이 아니고, JSON이나 XML같은 데이터를 브라우저로 전송
 @RequestMapping("/test/*")
 public class TestController {
 	static Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -96,5 +99,32 @@ public class TestController {
 	@RequestMapping(value="/res2")
 	public ModelAndView res2() {
 		return new ModelAndView("home"); // return값은 home.jsp
+	}
+	
+	@RequestMapping("/membersList2")
+	public ResponseEntity<List<MemberVO>> listMembers2() { // ResponseEntity로 응답함
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		for (int i=0; i<10; i++) {
+			MemberVO vo = new MemberVO();
+			vo.setId("lee" + i);
+			vo.setPwd("123"+i);
+			vo.setName("이순신" + i);
+			vo.setEmail("lee" + i + "@test.com");
+			list.add(vo);
+		}
+		return new ResponseEntity(list, HttpStatus.INTERNAL_SERVER_ERROR); // 오류코드 500으로 응답함
+	}
+	
+	@RequestMapping(value = "/res3")
+	public ResponseEntity res3() {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+			// 전송할 데이터의 종류와 인코딩을 설정함
+		String message = "<script>";
+		message += "alert('새 회원을 등록합니다.');";
+		message += "location.href='/bcjin/test/membersList2';";
+		message += "</script>";
+		return new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			// ResponseEntity를 이용해 HTML형식으로 전송함
 	}
 }
