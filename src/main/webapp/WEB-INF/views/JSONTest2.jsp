@@ -32,7 +32,7 @@ $(function(){
 			error:function(data, textStatus) {
 				alert("에러가 발생");
 			},
-			complete:function(data, textStatus) {
+			complete:function (data, textStatus) {
 			}
 		});
 	});
